@@ -2,13 +2,16 @@ import pygame
 
 
 class Grid:
-    def __init__(self, size, color, buffer_size):
+    def __init__(self, size, color, anchor, block):
         self.size = size
-        self.buffer_size = buffer_size
         self.grid = [[0 for i in range(10)] for x in range(20)]
-        self.buffer = [[0 for i in range(buffer_size)] for v in range(buffer_size)]
+        self.cells = []
+        self.color = color
+        self.block = block
         self.color = color
         self.cells = []
+        self.anchor = anchor
+        self.block = block
 
     def draw(self, surface):
         self.cells.clear()
@@ -19,10 +22,6 @@ class Grid:
                 n.append(d)
             self.cells.append(n)
         self.draw_grid(surface)
-
-    def add_block(self):
-        pass
-
     def draw_grid(self, surface):
         for i in range(len(self.grid)):
             for j in range(len(self.grid[0])):
@@ -31,10 +30,22 @@ class Grid:
                 else:
                     pygame.draw.rect(surface, self.color, (self.cells[j][i][0], self.cells[j][i][1], self.size, self.size))
 
-    def fast_fall(self, time):
+    @staticmethod
+    def fast_fall(time):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_DOWN]:
-            time = 40
+            time = time // 2
             return time
-        time = 90
         return time
+
+    def fall(self):
+        pass
+
+    def fast_place(self, block):
+        while block.can_place(self.grid):
+            block.falling(self.grid, self)
+
+
+
+    def clear_line(self):
+        pass

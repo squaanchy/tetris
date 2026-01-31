@@ -1,7 +1,10 @@
+import random
 import pygame
 import grid
-from shapes import shapes
 from block import Block
+from colors import colors
+from shapes import shapes
+from shape_rotations import ssp
 
 
 pygame.init()
@@ -9,27 +12,35 @@ screen = pygame.display.set_mode((400, 800))
 pygame.display.set_caption("Tetris")
 clock = pygame.Clock()
 running = True
-grid = grid.Grid(40, "white", 4)
-dt = clock.tick(6) / 1000
+spawn_position = (4, -4)
+size = 40
+shape = random.choice(list(shapes.keys()))
+active_block = Block(shapes[shape], random.choice(colors), size, spawn_position, ssp, shape)
+grid = grid.Grid(size, "white", spawn_position, active_block)
+
 fall_timer = 0
-O = Block(shapes["J"], "red", grid.size, (4, 4))
-
-
 while running:
     screen.fill((30, 30, 30))
+    keys = pygame.key.get_pressed()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
     grid.draw(screen)
-    O.draw(screen, grid.cells, grid.grid)
-    grid.draw(screen)
+    active_block.draw(screen, grid.cells)
     fall_timer += 1
-    grid.grid[12][4] = 1
-    time = grid.fast_fall(100)
+    time = grid.fast_fall(160)
     if fall_timer >= time:
-        O.move(grid.grid)
-        O.falling(grid.grid)
+        if keys[pygame.K_SPACE]:
+            grid.fast_place(active_block)
+        active_block.move(grid.grid)
+        active_block.falling(grid.grid, grid)
+        if keys[pygame.K_r]:
+            active_block.rotate(grid.grid)
         fall_timer = 0
+    if active_block.landed:
+        shape = random.choice(list(shapes.keys()))
+        active_block = Block(shapes[shape], random.choice(colors), grid.size, spawn_position, ssp, shape)
+    grid.draw(screen)
     pygame.display.flip()
-
+    print( active_block.rotation)
 pygame.quit()

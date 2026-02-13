@@ -64,9 +64,8 @@ class Block:
         return next_key
 
     def can_rotate(self, grid):
-        next_shape = self.next_shape()
-        for i in range(len(self.rotations[next_shape][self.rotation])):
-            for j in range(len(self.rotations[next_shape][self.rotation][i])):
+        for i in range(len(self.rotations[self.form][self.rotation])):
+            for j in range(len(self.rotations[self.form][self.rotation][i])):
                 x = self.anchor[0] + j
                 y = self.anchor[1] + i
 
@@ -76,12 +75,6 @@ class Block:
                 if y >= 0 and grid[y][x] == 1:
                     return False
         return True
-
-    def check_rotation(self):
-        if self.rotation > len(self.rotations[self.form][self.rotation][0]) - 1:
-            self.rotation = 0
-
-
 
     def move(self, grid):
         keys = pygame.key.get_pressed()
@@ -110,11 +103,11 @@ class Block:
         else:
             self.landed = True
             self.add_shape(grid, 0, 0)
+            g.clear_line(self.anchor[1])
 
     def rotate(self, grid):
+        self.rotation = (self.rotation + 1) % (len(self.rotations[self.form]))
         if self.can_rotate(grid):
-            self.check_rotation()
-            self.rotation += 1
             self.shape = self.rotations[self.form][self.rotation]
 
 

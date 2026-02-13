@@ -12,6 +12,7 @@ class Grid:
         self.cells = []
         self.anchor = anchor
         self.block = block
+        self.line = []
 
     def draw(self, surface):
         self.cells.clear()
@@ -45,7 +46,14 @@ class Grid:
         while block.can_place(self.grid):
             block.falling(self.grid, self)
 
+    def can_clear(self):
+        for row in range(len(self.grid)):
+            if all(self.grid[row]) == 1:
+                return True
+        return False
 
+    def clear_line(self, row): # Use self.shape in a for loop
+        for col in range(len(self.grid[-1])):
+            if self.can_clear():
+                self.grid.remove(self.grid[row][col])
 
-    def clear_line(self):
-        pass

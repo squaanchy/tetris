@@ -28,7 +28,7 @@ while running:
     grid.draw(screen)
     active_block.draw(screen, grid.cells)
     fall_timer += 1
-    time = grid.fast_fall(160)
+    time = grid.fast_fall(250)
     if fall_timer >= time:
         if keys[pygame.K_SPACE]:
             grid.fast_place(active_block)
@@ -42,5 +42,4 @@ while running:
         active_block = Block(shapes[shape], random.choice(colors), grid.size, spawn_position, ssp, shape)
     grid.draw(screen)
     pygame.display.flip()
-    print( active_block.rotation)
 pygame.quit()

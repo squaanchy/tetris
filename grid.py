@@ -14,6 +14,7 @@ class Grid:
         self.block = block
         self.line = []
         self.game_over = False
+        self.score = 0
 
 
     def draw(self, surface):
@@ -59,4 +60,3 @@ class Grid:
             i = len(block.shape) - 1
             del self.grid[row + i]
             self.grid.insert(0, [0 for _ in range(10)])
-            print("LINE CLEARED")

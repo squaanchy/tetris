@@ -13,6 +13,7 @@ class Grid:
         self.anchor = anchor
         self.block = block
         self.line = []
+        self.game_over = False
 
 
     def draw(self, surface):

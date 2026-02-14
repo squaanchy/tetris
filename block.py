@@ -125,3 +125,8 @@ class Block:
         return True
 
 
+    def losing(self, grid, g):
+        if not self.can_place(grid):
+            g.game_over = True
+
+

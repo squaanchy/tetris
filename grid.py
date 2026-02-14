@@ -14,6 +14,7 @@ class Grid:
         self.block = block
         self.line = []
 
+
     def draw(self, surface):
         self.cells.clear()
         for x in range(0, surface.get_width(), self.size):
@@ -52,10 +53,9 @@ class Grid:
                 return True
         return False
 
-    def clear_line(self, block): # Use self.shape in a for loop
-        for row in range(len(block.grid)):
-            if self.can_clear():
-                i = len(block.shape) - 1
-                del self.grid[row + i]
-                self.grid.insert(0, [0 for _ in range(10)])
-                print("LINE CLEARED")
+    def clear_line(self, block, row): # Use self.shape in a for loop
+        if self.can_clear():
+            i = len(block.shape) - 1
+            del self.grid[row + i]
+            self.grid.insert(0, [0 for _ in range(10)])
+            print("LINE CLEARED")

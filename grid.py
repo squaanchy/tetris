@@ -54,7 +54,7 @@ class Grid:
 
     def clear_line(self, row, block): # Use self.shape in a for loop
         if self.can_clear():
-            i = len(block.shape)
+            i = len(block.shape) - 1
             del self.grid[row + i]
             self.grid.insert(0, [0 for _ in range(10)])
 

@@ -103,7 +103,6 @@ class Block:
         else:
             self.landed = True
             self.add_shape(grid, 0, 0)
-            g.clear_line(self.anchor[1], self)
 
     def rotate(self, grid):
         self.rotation = (self.rotation + 1) % (len(self.rotations[self.form]))

@@ -34,6 +34,7 @@ while running:
             grid.fast_place(active_block)
         active_block.move(grid.grid)
         active_block.falling(grid.grid, grid)
+        grid.clear_line(active_block)
         if keys[pygame.K_r]:
             active_block.rotate(grid.grid)
         fall_timer = 0

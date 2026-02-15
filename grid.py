@@ -51,7 +51,7 @@ class Grid:
 
     def can_clear(self):
         for row in range(len(self.grid)):
-            if all(self.grid[row]) == 1:
+            if all(self.grid[row]) != 0:
                 return True
         return False
 

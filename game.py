@@ -1,11 +1,14 @@
 import random
 import pygame
+from pygame import Font
+
 from block import Block
 from colors import colors
 from grid import Grid
 from shape_rotations import ssp
 from shapes import shapes
 
+pygame.font.init()
 
 class UI:
     def __init__(self, color, size, grid):
@@ -19,6 +22,7 @@ class UI:
         surf = pygame.Surface((self.size[0], self.size[1]))
         # surf.fill((30, 30, 30))
         rec = pygame.draw.rect(surf, self.color, (0, 0, self.size[0], self.size[1]), width=1)
+        rec2 = pygame.draw.rect(surface, self.color, (284, 100, 100, 200), width=1)
         self.rec = rec
         self.surf = surf
         surface.blit(self.surf, (20, 50))

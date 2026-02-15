@@ -1,6 +1,5 @@
 import random
 import pygame
-from pygame import Font
 
 from block import Block
 from colors import colors
@@ -17,6 +16,8 @@ class UI:
         self.grid = grid
         self.rec = None
         self.surf = None
+        self.font = pygame.font.SysFont("Helvetica", 20)
+        self.score = 0
 
     def draw_ui(self, surface):
         surf = pygame.Surface((self.size[0], self.size[1]))
@@ -24,6 +25,10 @@ class UI:
         rec = pygame.draw.rect(surf, self.color, (0, 0, self.size[0], self.size[1]), width=1)
         rec2 = pygame.draw.rect(surface, self.color, (284, 100, 100, 200), width=1)
         self.rec = rec
+        score_txt = self.font.render("Score:", True, (255, 255, 255))
+        scr = self.font.render(f"{str(self.score)}", True, (255, 255, 255))
+        surface.blit(score_txt, (310, 310))
+        surface.blit(scr, (325, 335))
         self.surf = surf
         surface.blit(self.surf, (20, 50))
 
@@ -64,7 +69,7 @@ while running:
                 grid.fast_place(active_block)
             active_block.move(grid.grid)
             active_block.falling(grid.grid, grid)
-            grid.clear_line(active_block, active_block.anchor[1])
+            grid.clear_line(active_block, active_block.anchor[1], interface.score)
             if keys[pygame.K_r]:
                 active_block.rotate(grid.grid)
             fall_timer = 0

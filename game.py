@@ -17,7 +17,7 @@ class UI:
 
     def draw_ui(self, surface):
         surf = pygame.Surface((self.size[0], self.size[1]))
-        surf.fill((30, 30, 30))
+        # surf.fill((30, 30, 30))
         rec = pygame.draw.rect(surf, self.color, (0, 0, self.size[0], self.size[1]), width=1)
         self.rec = rec
         self.surf = surf
@@ -50,7 +50,6 @@ while running:
     interface.draw_ui(screen)
     grid.draw(interface.surf)
     active_block.draw(interface.surf, grid.cells)
-    grid.draw(interface.surf)
     screen.blit(interface.surf, (20, 50))
     keys = pygame.key.get_pressed()
     if grid.game_over == False:

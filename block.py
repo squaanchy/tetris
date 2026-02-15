@@ -16,13 +16,13 @@ class Block:
 
     def add_shape(self, grid, i, j):
         for anchor in self.current_cells():
-            grid[anchor[1]+i][anchor[0]+j] = 1
+            grid[anchor[1]+i][anchor[0]+j] = self.color
 
     def current_cells(self):
         l = []
         for i in range(len(self.shape)):
             for j in range(len(self.shape[0])):
-                if self.shape[i][j] == 1:
+                if self.shape[i][j] != 0:
                     l.append((self.anchor[0]+j, self.anchor[1]+i))
         return l
 
@@ -31,9 +31,8 @@ class Block:
             if y > 0:
                 if y + 1 >= len(grid):
                     return False
-                if grid[y + 1][x] == 1:
+                if grid[y + 1][x] != 0:
                     return False
-
         return True
 
     def is_valid_right(self, grid):
@@ -41,7 +40,7 @@ class Block:
             for j in range(len(self.shape[0])):
                 if self.anchor[0] + j < 0 or self.anchor[0] + j >= len(grid[0]) or self.anchor[1] + i >= len(grid):
                     return False
-                if self.anchor[1] + i >= 0 and grid[self.anchor[1] + i][self.anchor[0] + j + 1] == 1:
+                if self.anchor[1] + i >= 0 and grid[self.anchor[1] + i][self.anchor[0] + j + 1] != 0:
                     return False
         return True
 
@@ -50,7 +49,7 @@ class Block:
             for j in range(len(self.shape[0])):
                 if self.anchor[0] + j < 0 or self.anchor[0] + j >= len(grid[0]) or self.anchor[1] + i >= len(grid):
                     return False
-                if self.anchor[1] + i >= 0 and grid[self.anchor[1] + i][self.anchor[0] + j - 1] == 1:
+                if self.anchor[1] + i >= 0 and grid[self.anchor[1] + i][self.anchor[0] + j - 1] != 0:
                     return False
         return True
 
@@ -72,7 +71,7 @@ class Block:
                 if x < 0 or x >= len(grid[0]) or y >= len(grid):
                     return False
 
-                if y >= 0 and grid[y][x] == 1:
+                if y >= 0 and grid[y][x] != 0:
                     return False
         return True
 
@@ -90,7 +89,7 @@ class Block:
     def draw(self, surface, cells):
         for i in range(len(self.shape)):
             for j in range(len(self.shape[0])):
-                if self.shape[i][j] == 1 and self.anchor[1] + i >= 0: # BUFFER CHECK:
+                if self.shape[i][j] != 0 and self.anchor[1] + i >= 0: # BUFFER CHECK:
                     cube = pygame.draw.rect(surface, self.color, (cells[self.anchor[0]+j][self.anchor[1]+i][0], cells[self.anchor[0]+j][self.anchor[1]+i][1], self.size, self.size))
                     self.cubes.append(cube)
                     self.in_buffer = False
@@ -113,14 +112,14 @@ class Block:
     def can_place(self, grid):
         for i in range(len(self.shape)):
             for j in range(len(self.shape[0])):
-                if self.shape[i][j] == 1:
+                if self.shape[i][j] != 0:
                     x = self.anchor[0] + j
                     y = self.anchor[1] + i
 
                     if x < 0 or x >= len(grid[0]) or y >= len(grid):
                         return False
 
-                    if y >= 0 and grid[y][x] == 1:
+                    if y >= 0 and grid[y][x] != 0:
                         return False
         return True
 

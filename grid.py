@@ -32,7 +32,7 @@ class Grid:
                 if self.grid[i][j] == 0:
                     pygame.draw.rect(surface, self.color, (self.cells[j][i][0], self.cells[j][i][1], self.size, self.size), width=1)
                 else:
-                    pygame.draw.rect(surface, self.color, (self.cells[j][i][0], self.cells[j][i][1], self.size, self.size))
+                    pygame.draw.rect(surface, self.grid[i][j], (self.cells[j][i][0], self.cells[j][i][1], self.size, self.size))
 
     @staticmethod
     def fast_fall(time):

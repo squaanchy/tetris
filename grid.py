@@ -55,9 +55,9 @@ class Grid:
                 return True
         return False
 
-    def clear_line(self, block, row, score): # Use self.shape in a for loop
+    def clear_line(self, block, row, game): # Use self.shape in a for loop
         if self.can_clear():
             i = len(block.shape) - 1
             del self.grid[row + i]
             self.grid.insert(0, [0 for _ in range(10)])
-            score += len(self.grid[row + i]) * 10
+            game.score += len(self.grid[row + i]) * 10
